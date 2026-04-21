@@ -1,0 +1,43 @@
+type Query{
+    workflowsByTenant(tenantId: String!): [Workflow]
+    workflow(id: String): Workflow
+    agentResultsByWorkflow(workflowId: String!): [AgentResult]
+    agentResultsByTenant(tenantId: String!): [AgentResult]
+}
+
+type Mutation{
+    createWorkflow(name: String!, description: String!, tenantId: String!, steps: [StepInput]): Workflow
+    triggerWorkflow(workflowId: String!): Workflow
+}
+
+input StepInput{
+    actionType: String!
+    configData: String!
+    stepOrder: Int!
+}
+
+type Workflow{
+    id: String
+    name: String
+    description: String
+    tenantId: String
+    status: String
+    steps: [WorkflowStep]
+    createdAt: String
+}
+
+type WorkflowStep {
+    id: String
+    actionType: String
+    configData: String
+    stepOrder: Int
+}
+
+type AgentResult {
+    id: String
+    workflowId: String
+    tenantId: String
+    agentOutput: String
+    status: String
+    processedAt: String
+}
