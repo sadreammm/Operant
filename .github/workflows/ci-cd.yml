@@ -42,7 +42,9 @@ jobs:
           cache: maven
 
       - name: Run Tests
-        run: ./mvnw test
+        run: |
+          chmod +x mvnw
+          ./mvnw test
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/operant_db
           DB_USER: operant_user
