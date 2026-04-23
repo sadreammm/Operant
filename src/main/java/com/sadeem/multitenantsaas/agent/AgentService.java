@@ -41,7 +41,7 @@ public class AgentService {
         String executionLog = "";
 
         try {
-            JsonNode actionPlan = objectMapper.readTree(agentOutput);
+            JsonNode actionPlan = objectMapper.readTree(cleanedOutput);
             String toolToUse = actionPlan.path("toolToUse").asText();
 
             JsonNode arguments = actionPlan.path("arguments");

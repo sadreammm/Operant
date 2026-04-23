@@ -39,7 +39,7 @@ public class WorkflowGraphQLController {
 
     @QueryMapping
     public List<AgentResult> agentResultsByWorkflow(@Argument String workflowId) {
-        return agentResultRepository.findWorkflowById(workflowId);
+        return agentResultRepository.findByWorkflowId(workflowId);
     }
 
     @QueryMapping

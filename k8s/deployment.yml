@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operant-backend
+spec:
+  selector:
+    matchLabels:
+      app: operant-backend
+  template:
+    metadata:
+      labels:
+        app: operant-backend
+    spec:
+      containers:
+        - name: operant-backend
+          image: gcr.io/dependable-glow-466816-m4/operant-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: OAUTH_CLIENT_ID
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: OAUTH_CLIENT_SECRET
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: GEMINI_API_KEY
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: DB_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: DB_PASSWORD
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: SMTP_USER
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: operant-secrets
+                  key: SMTP_PASSWORD
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "200m"
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: operant-backend-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: operant-backend
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

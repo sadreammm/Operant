@@ -2,6 +2,7 @@ package com.sadeem.multitenantsaas.service;
 
 import com.sadeem.multitenantsaas.repository.TenantRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -23,7 +24,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication authentication) throws IOException{
+                                        Authentication authentication) throws IOException, ServletException{
 
         OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
         String email = oauthUser.getAttribute("email");
@@ -32,6 +33,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         tenantRepository.findByOwnerEmail(email)
                 .orElseGet(() -> provisioningService.createTenant(email, name));
 
-        response.sendRedirect("http://localhost:4200/dashboard");
+        this.setDefaultTargetUrl("http://localhost:4200/dashboard");
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 }
