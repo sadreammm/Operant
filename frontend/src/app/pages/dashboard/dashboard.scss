@@ -1,0 +1,243 @@
+.dashboard {
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: sans-serif;
+}
+
+.header {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .logo { font-size: 20px; }
+    .brand { font-weight: 600; font-size: 16px; }
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .tenant-name { font-weight: 500; font-size: 13px; }
+    .tenant-email { color: #888; font-size: 12px; }
+  }
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  h2 { margin: 0; font-size: 20px; }
+}
+
+.workflow-list { display: flex; flex-direction: column; gap: 16px; }
+
+.workflow-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+.workflow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+
+  h3 { margin: 0 0 4px; font-size: 15px; }
+  p { margin: 0; font-size: 13px; color: #666; }
+
+  .workflow-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.badge-active { background: #E1F5EE; color: #085041; }
+.badge-running { background: #FAEEDA; color: #633806; }
+.badge-inactive { background: #F1EFE8; color: #5F5E5A; }
+
+.steps {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  .step {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: #E6F1FB;
+    color: #0C447C;
+    font-weight: 500;
+  }
+}
+
+.results {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 14px;
+  h4 { margin: 0 0 8px; font-size: 13px; color: #888; font-weight: 500; }
+}
+
+.result-box {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 12px;
+  p { margin: 0 0 6px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+  .result-time { font-size: 11px; color: #aaa; }
+}
+
+.no-results p {
+  font-size: 13px;
+  color: #aaa;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 14px;
+  margin: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #888;
+}
+
+.btn-primary {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover { background: #303f9f; }
+}
+
+.btn-secondary {
+  background: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover { background: #f5f5f5; }
+}
+
+.btn-trigger {
+  background: white;
+  border: 1px solid #3f51b5;
+  color: #3f51b5;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  &:hover { background: #f0f2ff; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  h3 { margin: 0 0 20px; font-size: 18px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #444;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    &:focus { outline: none; border-color: #3f51b5; }
+  }
+}
+
+.steps-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  label { margin: 0; }
+}
+
+.btn-add-step {
+  background: none;
+  border: 1px dashed #3f51b5;
+  color: #3f51b5;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.step-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: center;
+
+  select { margin: 0; flex: 0 0 130px; }
+  input { margin: 0; flex: 1; }
+
+  .btn-remove {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 4px;
+    &:hover { color: #e53935; }
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+}

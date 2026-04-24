@@ -1,0 +1,106 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">⚡</span>
+      <span class="brand">Operant</span>
+    </div>
+    <div class="header-right" *ngIf="tenant">
+      <span class="tenant-name">{{ tenant.name }}</span>
+      <span class="tenant-email">{{ tenant.ownerEmail }}</span>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- Page title + create button -->
+    <div class="page-header">
+      <h2>Workflows</h2>
+      <button class="btn-primary" (click)="showCreateModal = true">+ New Workflow</button>
+    </div>
+
+    <!-- Workflow list -->
+    <div class="workflow-list">
+      <div class="workflow-card" *ngFor="let workflow of workflows">
+
+        <!-- Workflow header -->
+        <div class="workflow-header">
+          <div>
+            <h3>{{ workflow.name }}</h3>
+            <p>{{ workflow.description }}</p>
+          </div>
+          <div class="workflow-actions">
+            <span [class]="'badge ' + getStatusClass(workflow.status)">
+              {{ workflow.status }}
+            </span>
+            <button
+              class="btn-trigger"
+              (click)="triggerWorkflow(workflow.id)"
+              [disabled]="triggeringId === workflow.id">
+              {{ triggeringId === workflow.id ? 'Running...' : 'Trigger' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps" *ngIf="workflow.steps.length > 0">
+          <span class="step" *ngFor="let step of workflow.steps">
+            {{ step.actionType }}
+          </span>
+        </div>
+
+        <!-- Agent Results -->
+        <div class="results" *ngIf="getResults(workflow.id).length > 0">
+          <h4>Latest Agent Output</h4>
+          <div class="result-box">
+            <p>{{ getResults(workflow.id)[0].agentOutput }}</p>
+            <span class="result-time">{{ getResults(workflow.id)[0].processedAt | date:'medium' }}</span>
+          </div>
+        </div>
+
+        <div class="no-results" *ngIf="getResults(workflow.id).length === 0">
+          <p>No agent results yet — trigger the workflow to run the AI agent</p>
+        </div>
+
+      </div>
+
+      <div class="empty-state" *ngIf="workflows.length === 0">
+        <p>No workflows yet. Create your first one!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Workflow Modal -->
+  <div class="modal-overlay" *ngIf="showCreateModal" (click)="showCreateModal = false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>Create Workflow</h3>
+
+      <label>Name</label>
+      <input [(ngModel)]="newWorkflow.name" placeholder="e.g. Daily Report Workflow" />
+
+      <label>Description</label>
+      <input [(ngModel)]="newWorkflow.description" placeholder="What does this workflow do?" />
+
+      <div class="steps-header">
+        <label>Steps</label>
+        <button class="btn-add-step" (click)="addStep()">+ Add Step</button>
+      </div>
+
+      <div class="step-row" *ngFor="let step of newWorkflow.steps; let i = index">
+        <select [(ngModel)]="step.actionType">
+          <option value="AI_AGENT">AI Agent</option>
+          <option value="EMAIL">Email</option>
+        </select>
+        <input [(ngModel)]="step.configData" placeholder="Config data" />
+        <button class="btn-remove" (click)="removeStep(i)">✕</button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="showCreateModal = false">Cancel</button>
+        <button class="btn-primary" (click)="createWorkflow()">Create</button>
+      </div>
+    </div>
+  </div>
+
+</div>

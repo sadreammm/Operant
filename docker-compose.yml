@@ -29,5 +29,23 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  backend-app:
+    build: ./backend
+    container_name: operant_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - kafka
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
+      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
 volumes:
   postgres_data:

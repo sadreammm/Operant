@@ -1,50 +1,39 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# --- General / System ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+.env
+*.env
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
+# --- IDEs & Editors ---
+.idea/
+.vscode/
 *.iws
 *.iml
 *.ipr
+.history/*
+.settings/
+.classpath
+.project
+.factorypath
+.springBeans
+.sts4-cache
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# --- Java / Spring Boot (Backend) ---
+**/target/
+**/*.class
+**/mvnw.cmd
+**/.mvn/timing.properties
+**/target/
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-### VS Code ###
-.vscode/
-
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -53,38 +42,29 @@ build/
 *.tar.gz
 *.rar
 
-# virtual machine crash logs
+# --- Angular / Node (Frontend) ---
+**/node_modules/
+**/dist/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+**/.angular/cache
+.sass-cache/
+npm-debug.log
+yarn-error.log
+/connect.lock
+/coverage
+/typings
+__screenshots__/
+
+# --- Miscellaneous ---
 hs_err_pid*
 replay_pid*
-
-# Eclipse
-.classpath
-.project
-.settings/
-bin/
-
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-.env
-*.env
 application-local.yml
 application-secret.yml
+
+# Keep secrets out of Git
+**/*-secret.yml
+**/*-local.yml
+
+HELP.md
